@@ -5,6 +5,7 @@ import (
 	"github.com/go-telegram/bot"
 	"github.com/go-telegram/bot/models"
 	"github.com/joho/godotenv"
+	"go-telegrambot/pkg/commands"
 	"log"
 	"os"
 	"os/signal"
@@ -31,6 +32,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	b.RegisterHandler(bot.HandlerTypeMessageText, "/start", bot.MatchTypeExact, commands.StartHandler)
+	b.RegisterHandler(bot.HandlerTypeMessageText, "/ping", bot.MatchTypeExact, commands.PongHandler)
 
 	b.Start(ctx)
 }
